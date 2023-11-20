@@ -2,18 +2,17 @@ package com.example.models.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.engine.jdbc.Size;
 import org.hibernate.validator.constraints.Range;
 
 import java.util.Date;
 
 @Entity
-@NoArgsConstructor@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
-@ToString(of = {"pseudo", "email","password","role"})
+@ToString(of = {"pseudo", "password", "email", "role"})
 public class Member {
 
     @Id
@@ -22,15 +21,17 @@ public class Member {
     private long id;
 
     @Column(name = "Member_Pseudonyme",
-            length = 50,unique = true)
+            length = 50,
+            unique = true)
     private String pseudo;
 
+    //Hasher pour la DB (securiter)
     @Column(name = "Member_Password")
     private String password;
 
     @Column(name = "Member_Email",
-            length = 50
-            ,unique = true)
+            length = 50,
+            unique = true)
     private String email;
 
     @Column(name = "Member_Role",
@@ -44,8 +45,9 @@ public class Member {
     @Column(name = "Member_BirthDate")
     private Date birthDate;
 
-    @Column(name = "Member_Elo",columnDefinition = "int DEFAULT 1200")
-    @Range(min = 0,max = 3000)
+    @Column(name = "Member_Elo", columnDefinition = "int DEFAULT 1200")
+    @Range(min = 0, max = 3000)
     private int elo;
+
 
 }
