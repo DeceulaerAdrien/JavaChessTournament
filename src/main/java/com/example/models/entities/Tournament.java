@@ -54,11 +54,11 @@ public class Tournament {
     @Column(name = "Tournament_end_inscription_date")
     private LocalDate endInscritpionDate;
 
-    @Column(name = "Tournament_update_date")
-    @CreatedDate
-    private LocalDate createAt;
-
     @Column(name = "Tournament_creation_date")
+    @CreatedDate
+    private LocalDate createdAt;
+
+    @Column(name = "Tournament_update_date")
     @LastModifiedDate
-    private LocalDate updatedAt;
+    private LocalDate updateAt;
 }
