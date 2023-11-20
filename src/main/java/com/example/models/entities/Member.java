@@ -37,7 +37,7 @@ public class Member {
             length = 50)
     private char gender;
 
-    @Column(name = "Member_BirthDat",
+    @Column(name = "Member_BirthDate",
             length = 1)
     private Date birthDate;
 
