@@ -22,6 +22,9 @@ public class Member {
             length = 50)
     private String pseudo;
 
+    @Column(name = "Member_Password")
+    private String password;
+
     @Column(name = "Member_Email",
             length = 50)
     private String email;
