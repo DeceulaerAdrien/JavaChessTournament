@@ -9,22 +9,24 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+@Getter
 public class PlayerTournament extends BaseRelation<PlayerTournament.PlayerTournamentId>{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("playerId")
-    @Getter@Setter
+    @Setter
     private Player player;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("playerId")
-    @Getter@Setter
+    @Setter
     private Tournament tournament;
 
+    @Getter
     public static class PlayerTournamentId implements Serializable {
-        @Getter@Setter
+        @Setter
         private long playerId;
-        @Getter@Setter
+        @Setter
         private long tournamentId;
     }
 }

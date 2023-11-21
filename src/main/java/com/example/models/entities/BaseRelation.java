@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+@Getter
 @MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class BaseRelation <T extends Serializable> {
 
     @EmbeddedId
-    @Getter
     private T id;
 }

@@ -1,12 +1,14 @@
 package com.example.models.entities;
 
 import com.example.models.entities.enums.TournamentCategoriesEnum;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.cglib.core.Local;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -15,13 +17,13 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class Tournament extends BaseEntity<Long> {
 
     @Column(name = "Tournament_name")
     private String name;
 
-    @Column(name = "Tournament_location", nullable = true)
+    @Column(name = "Tournament_location")
     private String location;
 
     @Column(name = "Tournament_categorie")
@@ -40,10 +42,10 @@ public class Tournament extends BaseEntity<Long> {
     private int maxPlayer;
 
     @Range(min = 0, max = 3000)
-    @Column(name = "Tournament_min_elo", nullable = true)
+    @Column(name = "Tournament_min_elo")
     private int minElo;
 
-    @Column(name = "Tournament_max_elo", nullable = true)
+    @Column(name = "Tournament_max_elo")
     private int maxElo;
 
     @Column(name = "Tournament_round")
