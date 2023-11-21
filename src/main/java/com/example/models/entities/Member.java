@@ -1,12 +1,13 @@
 package com.example.models.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.hibernate.engine.jdbc.Size;
+import org.hibernate.sql.results.graph.Fetch;
 import org.hibernate.validator.constraints.Range;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -49,5 +50,6 @@ public class Member {
     @Range(min = 0, max = 3000)
     private int elo;
 
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Tournament> tournaments;
 }

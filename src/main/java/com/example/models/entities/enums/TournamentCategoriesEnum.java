@@ -5,5 +5,3 @@ public enum TournamentCategoriesEnum {
     SENIOR,
     VETERAN
 }
-
-
