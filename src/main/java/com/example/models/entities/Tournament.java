@@ -16,12 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Tournament {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Tournament_id")
-    private long id;
+public class Tournament extends BaseEntity<Long> {
 
     @Column(name = "Tournament_name")
     private String name;
