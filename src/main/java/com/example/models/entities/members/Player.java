@@ -4,5 +4,5 @@ import com.example.models.entities.Member;
 import jakarta.persistence.Entity;
 
 @Entity
-public class Admin extends Member {
+public class Player extends Member {
 }

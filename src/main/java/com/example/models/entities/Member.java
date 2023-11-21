@@ -59,6 +59,7 @@ public class Member extends BaseEntity<Long> {
     @Setter
     private int elo;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Set<Tournament> tournaments;
 }
