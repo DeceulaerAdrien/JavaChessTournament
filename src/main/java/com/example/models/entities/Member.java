@@ -1,9 +1,7 @@
 package com.example.models.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import com.example.models.entities.enums.MemberGenderEnum;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.validator.constraints.Range;
 
@@ -43,8 +41,9 @@ public class Member extends BaseEntity<Long> {
 
     @Column(name = "Member_Gender",
             length = 1)
+    @Enumerated(EnumType.STRING)
     @Setter
-    private char gender;
+    private MemberGenderEnum gender;
 
     @Column(name = "Member_Birth_Date")
     @Setter
