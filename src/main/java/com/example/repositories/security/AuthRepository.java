@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface AuthRepository extends JpaRepository<Member,Long> {
-//    @Query("SELECT m FROM Member WHERE m.Member_Pseudonyme ILIKE :Member_Pseudonyme")
-//    Optional<Member> findByUserPseudo(String pseudo);
+    @Query("SELECT m FROM Member m WHERE m.username ILIKE :member_username")
+    Optional<Member> findByUserPseudo(String pseudo);
 }
