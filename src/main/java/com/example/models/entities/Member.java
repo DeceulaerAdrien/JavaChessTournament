@@ -28,7 +28,7 @@ public class Member extends BaseEntity<Long> implements UserDetails {
     @Setter
     private String username;
 
-    @Column(name = "Member_Password", length = 15)
+    @Column(name = "Member_Password")
     @Setter
     private String password;
 
@@ -42,7 +42,7 @@ public class Member extends BaseEntity<Long> implements UserDetails {
     @Setter
     private String role;
 
-    @Column(name = "Member_Gender", columnDefinition = "varchar DEFAULT OTHER")
+    @Column(name = "Member_Gender",columnDefinition = "VARCHAR DEFAULT 'OTHER'")
     @Enumerated(EnumType.STRING)
     @Setter
     private MemberGenderEnum gender;
