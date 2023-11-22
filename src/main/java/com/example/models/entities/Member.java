@@ -13,15 +13,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@ToString(of = {"pseudo", "password", "email", "role"})
+@ToString(of = {"username", "password", "email", "role"})
 public class Member extends BaseEntity<Long> {
 
-
-    @Column(name = "Member_Pseudonyme",
+    @Column(name = "Member_Username",
             length = 50,
             unique = true)
     @Setter
-    private String pseudo;
+    private String username;
 
     //Hasher pour la DB (security)
     @Column(name = "Member_Password")
@@ -41,7 +40,7 @@ public class Member extends BaseEntity<Long> {
 
     @Column(name = "Member_Gender",
             length = 1)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Setter
     private MemberGenderEnum gender;
 
@@ -53,9 +52,4 @@ public class Member extends BaseEntity<Long> {
     @Range(min = 0, max = 3000)
     @Setter
     private int elo;
-
-//    @ManyToMany(fetch = FetchType.LAZY,
-//            cascade = CascadeType.ALL)
-//    private Set<Tournament> tournament;
-
 }

@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class JWTConfig {
 
-    private byte[] secret ="message au pif".getBytes(StandardCharsets.UTF_8);
+    private byte[] secret ="QQ5JeAwBQ5!s-&1K^+V#wMAeP1p*m69#".getBytes(StandardCharsets.UTF_8);
 
     public int expireAt = 86400;
 
