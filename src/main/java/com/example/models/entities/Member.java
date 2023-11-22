@@ -39,8 +39,8 @@ public class Member extends BaseEntity<Long> {
     private String role;
 
     @Column(name = "Member_Gender",
-            length = 1)
-    @Enumerated(EnumType.ORDINAL)
+            length = 10 )
+    @Enumerated(EnumType.STRING)
     @Setter
     private MemberGenderEnum gender;
 
