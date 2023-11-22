@@ -1,4 +1,4 @@
-package com.example.services.impl.security;
+package com.example.services.security.impl;
 
 
 import com.example.models.entities.Member;
