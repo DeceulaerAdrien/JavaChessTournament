@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Getter
 @Entity
+@Getter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,8 +28,7 @@ public class Member extends BaseEntity<Long> implements UserDetails {
     @Setter
     private String username;
 
-    //Hasher pour la DB (security)
-    @Column(name = "Member_Password")
+    @Column(name = "Member_Password", length = 15)
     @Setter
     private String password;
 
@@ -39,12 +38,11 @@ public class Member extends BaseEntity<Long> implements UserDetails {
     @Setter
     private String email;
 
-    @Column(name = "Member_Role",
-            length = 50)
+    @Column(name = "Member_Role")
     @Setter
     private String role;
 
-    @Column(name = "Member_Gender")
+    @Column(name = "Member_Gender", columnDefinition = "varchar DEFAULT OTHER")
     @Enumerated(EnumType.STRING)
     @Setter
     private MemberGenderEnum gender;

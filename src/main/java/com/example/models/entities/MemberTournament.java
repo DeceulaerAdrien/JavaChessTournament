@@ -1,6 +1,5 @@
 package com.example.models.entities;
 
-import com.example.models.entities.members.Player;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
@@ -16,12 +15,12 @@ import java.io.Serializable;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class PlayerTournament extends BaseRelation<PlayerTournament.PlayerTournamentId> {
+public class MemberTournament extends BaseRelation<MemberTournament.MembertournamentId> {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @MapsId("playerId")
+    @MapsId("memberId")
     @Setter
-    private Player player;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("tournamentId")
@@ -29,9 +28,9 @@ public class PlayerTournament extends BaseRelation<PlayerTournament.PlayerTourna
     private Tournament tournament;
 
     @Getter
-    public static class PlayerTournamentId implements Serializable {
+    public static class MembertournamentId implements Serializable {
         @Setter
-        private long playerId;
+        private long memberId;
         @Setter
         private long tournamentId;
     }
