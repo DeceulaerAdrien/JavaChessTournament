@@ -2,7 +2,7 @@ package com.example.services.impl.security;
 
 
 import com.example.models.entities.Member;
-import com.example.repositories.secu.AuthRepository;
+import com.example.repositories.security.AuthRepository;
 import com.example.services.security.AuthService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

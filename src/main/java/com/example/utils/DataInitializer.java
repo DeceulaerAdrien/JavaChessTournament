@@ -1,11 +1,8 @@
 package com.example.utils;
 
-import com.example.models.entities.Member;
-import com.example.repositories.secu.AuthRepository;
+import com.example.repositories.security.AuthRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDate;
 
 public class DataInitializer implements CommandLineRunner {
 
