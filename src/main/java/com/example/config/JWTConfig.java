@@ -9,9 +9,9 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class JWTConfig {
 
-    private byte[] secret ="QQ5JeAwBQ5!s-&1K^+V#wMAeP1p*m69#".getBytes(StandardCharsets.UTF_8);
+    private final byte[] SECRET ="QQ5JeAwBQ5!s-&1K^+V#wMAeP1p*m69#".getBytes(StandardCharsets.UTF_8);
 
-    public int expireAt = 86400;
+    public final int expireAt = 86400;
 
-    public SecretKey secretKey = new SecretKeySpec(secret,"HmacSHA384");
+    public SecretKey secretKey = new SecretKeySpec(SECRET,"HmacSHA384");
 }

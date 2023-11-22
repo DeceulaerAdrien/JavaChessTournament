@@ -1,31 +1,36 @@
 package com.example.models.entities;
 
-import com.example.models.entities.members.Player;
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
+@Entity
 @Getter
-public class PlayerTournament extends BaseRelation<PlayerTournament.PlayerTournamentId>{
+@ToString
+@EqualsAndHashCode
+public class MemberTournament extends BaseRelation<MemberTournament.MembertournamentId> {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @MapsId("playerId")
+    @MapsId("memberId")
     @Setter
-    private Player player;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @MapsId("playerId")
+    @MapsId("tournamentId")
     @Setter
     private Tournament tournament;
 
     @Getter
-    public static class PlayerTournamentId implements Serializable {
+    public static class MembertournamentId implements Serializable {
         @Setter
-        private long playerId;
+        private long memberId;
         @Setter
         private long tournamentId;
     }
