@@ -1,4 +1,4 @@
-package com.example.services.security.impl;
+package com.example.services.impl;
 
 import com.example.models.entities.Tournament;
 import com.example.repositories.TournamentRepository;

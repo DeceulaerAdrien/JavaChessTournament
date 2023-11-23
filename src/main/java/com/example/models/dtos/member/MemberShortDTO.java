@@ -10,7 +10,8 @@ public record MemberShortDTO(
         int elo
 ) {
     public static MemberShortDTO fromEntity(Member member) {
-        return new MemberShortDTO(member.getId(),
+        return new MemberShortDTO(
+                member.getId(),
                 member.getUsername(),
                 member.getRole(),
                 member.getElo());
