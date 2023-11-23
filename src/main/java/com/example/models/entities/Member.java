@@ -22,6 +22,9 @@ import java.util.List;
 @ToString(of = {"username", "password", "email", "role"})
 public class Member extends BaseEntity<Long> implements UserDetails {
 
+    // Service tournois
+
+
     @Column(name = "Member_Username",
             length = 50,
             unique = true)
