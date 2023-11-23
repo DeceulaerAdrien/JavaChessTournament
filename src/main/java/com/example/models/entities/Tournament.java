@@ -13,6 +13,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -64,4 +65,7 @@ public class Tournament extends BaseEntity<Long> {
     @Column(name = "Tournament_update_date")
     @LastModifiedDate
     private LocalDate updateAt;
+
+    public Tournament(String name, String location, TournamentCategoriesEnum categoriesEnum, String statut, Integer minPlayers, Integer maxPlayers, int minElo, int maxElo, boolean womenOnly, LocalDateTime endInscriptionDate) {
+    }
 }
