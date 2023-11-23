@@ -1,6 +1,7 @@
 package com.example.models.entities;
 
 import com.example.models.entities.enums.MemberGenderEnum;
+import com.example.models.entities.enums.security.RoleTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.validator.constraints.Range;
@@ -39,8 +40,9 @@ public class Member extends BaseEntity<Long> implements UserDetails {
     private String email;
 
     @Column(name = "Member_Role")
+    @Enumerated(EnumType.STRING)
     @Setter
-    private String role;
+    private RoleTypeEnum role;
 
     @Column(name = "Member_Gender",columnDefinition = "VARCHAR DEFAULT 'OTHER'")
     @Enumerated(EnumType.STRING)
@@ -62,7 +64,7 @@ public class Member extends BaseEntity<Long> implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(this.role);
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(this.role.toString());
         authorities.add(grantedAuthority);
         return authorities;
     }
