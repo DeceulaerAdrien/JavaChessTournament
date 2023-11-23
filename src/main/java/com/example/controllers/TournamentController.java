@@ -31,6 +31,8 @@ public class TournamentController {
     @PostMapping
     public ResponseEntity<Tournament> create(@RequestBody @Valid TournamentForm tournamentForm){
         Tournament tournament = tournamentService.create(tournamentForm.toEntity());
-        return ResponseEntity.ok(TournamentDTO.fromEntity(tournament));
+        return ResponseEntity.ok(tournament
+                //TournamentDTO.fromEntity(tournament)
+        );
     }
 }
