@@ -22,8 +22,8 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public Void delete(Long id) {
-        Tournament tournament1 = this.getbyId(id)
+    public void delete(Long id) {
+        Tournament tournament1 = this.getbyId(id);
         this.tournamentRepository.delete(tournament1);
     }
 
