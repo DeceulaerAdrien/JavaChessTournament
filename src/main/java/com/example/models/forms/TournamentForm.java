@@ -5,66 +5,64 @@ import com.example.models.entities.Tournament;
 import com.example.models.entities.enums.TournamentCategoriesEnum;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import org.hibernate.validator.constraints.Length;
+import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Range;
-import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@ToString @EqualsAndHashCode
-public class TournamentForm {
-    @NotBlank
-    @Length(max = 100)
-    private String name;
-    @NotBlank
-    @Length(max = 100)
-    private String location;
-    @NotBlank
-    private TournamentCategoriesEnum categoriesEnum;
-    @NotBlank
-    private String statut;
-    @NotBlank
-    @Range(min = 2, max = 32)
-    private Integer minPlayers;
-    @NotBlank
-    @Range(min = 2, max = 32)
-    private Integer maxPlayers;
-    @NotBlank
-    @Range(min = 0, max = 3000)
-    private int minElo;
-    @NotBlank
-    @Range(min = 0, max = 3000)
-    private int maxElo;
+import java.time.LocalDate;
 
-    @NotNull
-    private boolean womenOnly;
-    @NotNull
+public record TournamentForm(
+        @NotBlank
+        @Size(max = 50)
+        String name,
 
-    private LocalDateTime endInscriptionDate;
+        @NotBlank
+        @Size(max = 100)
+        String location,
 
+        @NotNull
+        TournamentCategoriesEnum categoriesEnum,
 
+        @NotBlank
+        String statut,
+
+        @NotNull
+        @Range(min = 2, max = 32)
+        int minPlayers,
+
+        @NotNull
+        @Range(min = 2, max = 32)
+        int maxPlayers,
+
+        @NotNull
+        @Range(min = 0, max = 3000)
+        int minElo,
+
+        @NotNull
+        @Range(min = 0, max = 3000)
+        int maxElo,
+
+        @NotNull
+        boolean womenOnly,
+
+        @NotNull
+        LocalDate endInscriptionDate
+) {
     public Tournament toEntity() {
-
-        return new Tournament(
-                this.name,
-                this.location,
-                this.categoriesEnum,
-                this.statut,
-                this.minPlayers,
-                this.maxPlayers,
-                this.minElo,
-                this.maxElo,
-                this.womenOnly,
-                this.endInscriptionDate);
-
-
+        Tournament tournament = new Tournament();
+        tournament.setName(this.name);
+        tournament.setLocation(this.location);
+        tournament.setCategorie(this.categoriesEnum);
+        tournament.setStatut(this.statut);
+        tournament.setMinPlayer(this.minPlayers);
+        tournament.setMaxPlayer(this.maxPlayers);
+        tournament.setMinElo(this.minElo);
+        tournament.setMaxElo(this.maxElo);
+        tournament.setWomenOnly(this.womenOnly);
+        tournament.setEndInscritpionDate(this.endInscriptionDate);
+        return tournament;
     }
-
 }
 
 

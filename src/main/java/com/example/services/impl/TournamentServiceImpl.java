@@ -26,12 +26,10 @@ public class TournamentServiceImpl implements TournamentService {
         Tournament tournament1 = this.getbyId(id);
         this.tournamentRepository.delete(tournament1);
     }
-
     @Override
     public Tournament getbyId(Long id) {
         return this.tournamentRepository.findById(id).orElseThrow();
     }
-
     @Override
     public List<Tournament> getAll() {
         return tournamentRepository.findAll();

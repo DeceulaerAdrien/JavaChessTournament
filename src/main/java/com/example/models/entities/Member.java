@@ -24,8 +24,6 @@ import java.util.List;
 public class Member extends BaseEntity<Long> implements UserDetails {
 
     // Service tournois
-
-
     @Column(name = "Member_Username",
             length = 50,
             unique = true)
@@ -47,7 +45,7 @@ public class Member extends BaseEntity<Long> implements UserDetails {
     @Setter
     private RoleTypeEnum role;
 
-    @Column(name = "Member_Gender",columnDefinition = "VARCHAR DEFAULT 'OTHER'")
+    @Column(name = "Member_Gender")
     @Enumerated(EnumType.STRING)
     @Setter
     private MemberGenderEnum gender;
@@ -56,21 +54,21 @@ public class Member extends BaseEntity<Long> implements UserDetails {
     @Setter
     private LocalDate birthDate;
 
-    @Column(name = "Member_Elo", columnDefinition = "int DEFAULT 1200")
+    @Column(name = "Member_Elo")
     @Range(min = 0, max = 3000)
     @Setter
     private int elo;
 
-    @Setter
-    private Boolean isActive;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(this.role.toString());
-        authorities.add(grantedAuthority);
+        GrantedAuthority Authority = new SimpleGrantedAuthority(this.role.toString());
+        authorities.add(Authority);
         return authorities;
     }
+
+    @Override
+    public String getUsername(){return this.username;}
 
     @Override
     public boolean isAccountNonExpired() {
@@ -79,16 +77,16 @@ public class Member extends BaseEntity<Long> implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isEnabled() {
-        return this.isActive;
+        return true;
     }
 }

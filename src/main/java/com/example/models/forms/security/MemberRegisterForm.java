@@ -19,7 +19,7 @@ public record MemberRegisterForm(
         @Size(max = 50)
         String eMail,
 
-        @NotBlank
+//        @NotBlank
         RoleTypeEnum role,
 
         @NotBlank

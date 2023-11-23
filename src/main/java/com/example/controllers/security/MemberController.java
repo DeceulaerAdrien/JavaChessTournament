@@ -8,6 +8,7 @@ import com.example.models.forms.security.MemberRegisterForm;
 import com.example.services.security.MemberService;
 import com.example.utils.BCryptUtils;
 import com.example.utils.JwtUtils;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,15 +25,15 @@ public class MemberController {
         this.jwtUtils = jwtUtils;
     }
 
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/register")
     public ResponseEntity<MemberTokenDTO> register(
-            @RequestBody MemberRegisterForm form
+            @RequestBody @Valid MemberRegisterForm form
     ) {
         Member member = memberService.register(form.toEntity());
-        String token = jwtUtils.generateToken(member);
+//        String token = jwtUtils.generateToken(member);
         MemberTokenDTO dto = MemberTokenDTO.fromEntity(member);
-        dto.setToken(token);
+//        dto.setToken(token);
         return ResponseEntity.ok(dto);
     }
 

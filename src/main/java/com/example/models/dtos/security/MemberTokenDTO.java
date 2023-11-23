@@ -24,5 +24,4 @@ public class MemberTokenDTO {
         dto.setRole(member.getRole());
         return dto;
     }
-
 }
