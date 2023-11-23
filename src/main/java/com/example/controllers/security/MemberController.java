@@ -5,12 +5,10 @@ import com.example.models.entities.Member;
 
 import com.example.models.forms.security.MemberLoginForm;
 import com.example.models.forms.security.MemberRegisterForm;
-import com.example.services.security.MemberService;
-import com.example.utils.BCryptUtils;
+import com.example.services.MemberService;
 import com.example.utils.JwtUtils;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
