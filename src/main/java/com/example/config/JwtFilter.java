@@ -36,15 +36,18 @@ public class JwtFilter extends OncePerRequestFilter {
             String[] authorizations = authorization.split(" ");
             String type = authorizations[0];
             String token = authorizations[1];
+
             if (type.equals("Bearer") && !token.isEmpty()) {
+                String usermane= this.utils.getUsername(token);
+                UserDetails user = this.userDetailsService.loadUserByUsername(usermane);
                 if (utils.isValid(token)) {
-                    String username = utils.getUsername(token);
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
                     UsernamePasswordAuthenticationToken upat = new UsernamePasswordAuthenticationToken(
-                            userDetails,
-                            token,
-                            userDetails.getAuthorities());
-                    SecurityContextHolder.getContext().setAuthentication(upat);
+                            user,
+                            null,
+                            user.getAuthorities());
+                    SecurityContextHolder.getContext()
+                            .setAuthentication(upat);
                 }
             }
         }
