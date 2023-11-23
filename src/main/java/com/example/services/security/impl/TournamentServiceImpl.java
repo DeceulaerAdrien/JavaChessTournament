@@ -18,21 +18,22 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Override
     public Tournament create(Tournament tournament) {
-        return null;
+        return this.tournamentRepository.save(tournament);
     }
 
     @Override
-    public Void delete(Tournament tournament) {
-        return null;
+    public Void delete(Long id) {
+        Tournament tournament1 = this.getbyId(id)
+        this.tournamentRepository.delete(tournament1);
     }
 
     @Override
     public Tournament getbyId(Long id) {
-        return null;
+        return this.tournamentRepository.findById(id).orElseThrow();
     }
 
     @Override
     public List<Tournament> getAll() {
-        return null;
+        return tournamentRepository.findAll();
     }
 }

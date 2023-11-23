@@ -10,7 +10,7 @@ public interface TournamentService {
 
     Tournament create (Tournament tournament);
 
-    Void delete (Tournament tournament);
+    Void delete (Long id);
 
     Tournament getbyId (Long id);
 
