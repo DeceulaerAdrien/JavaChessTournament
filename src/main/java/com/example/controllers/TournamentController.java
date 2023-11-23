@@ -4,7 +4,6 @@ import com.example.models.dtos.member.MemberShortDTO;
 import com.example.models.dtos.tournament.TournamentDTO;
 import com.example.models.entities.Member;
 import com.example.models.entities.Tournament;
-import com.example.models.forms.MemberForm;
 import com.example.models.forms.TournamentForm;
 import com.example.services.MemberService;
 import com.example.services.TournamentService;

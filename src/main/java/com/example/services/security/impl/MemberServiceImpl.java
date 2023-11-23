@@ -4,7 +4,7 @@ package com.example.services.security.impl;
 import com.example.exceptions.member.AlreadyExistMemberException;
 import com.example.models.entities.Member;
 import com.example.repositories.security.MemberRepository;
-import com.example.services.security.MemberService;
+import com.example.services.MemberService;
 import com.example.utils.BCryptUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
