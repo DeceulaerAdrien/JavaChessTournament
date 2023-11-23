@@ -1,12 +1,12 @@
 package com.example.models.dtos.member;
 
 import com.example.models.entities.Member;
+import com.example.models.entities.enums.security.RoleTypeEnum;
 
 public record MemberShortDTO(
-
         long id,
         String username,
-        String role,
+        RoleTypeEnum role,
         int elo
 ) {
     public static MemberShortDTO fromEntity(Member member) {

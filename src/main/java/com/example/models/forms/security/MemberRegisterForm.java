@@ -1,14 +1,16 @@
-package com.example.models.forms;
+package com.example.models.forms.security;
 
 import com.example.models.entities.Member;
 import com.example.models.entities.enums.MemberGenderEnum;
+import com.example.models.entities.enums.security.RoleTypeEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 
+
 import java.time.LocalDate;
 
-public record MemberForm(
+public record MemberRegisterForm(
         @NotBlank
         @Size(min = 2, max = 50)
         String userName,
@@ -18,7 +20,7 @@ public record MemberForm(
         String eMail,
 
         @NotBlank
-        String role,
+        RoleTypeEnum role,
 
         @NotBlank
         @Size(min = 8, max = 15)
