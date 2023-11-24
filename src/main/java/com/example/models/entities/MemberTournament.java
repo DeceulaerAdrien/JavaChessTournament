@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class MemberTournament extends BaseRelation<MemberTournament.MembertournamentId> {
 
     @ManyToOne(fetch = FetchType.EAGER)

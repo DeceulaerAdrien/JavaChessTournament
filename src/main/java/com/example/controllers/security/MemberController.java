@@ -9,10 +9,11 @@ import com.example.services.MemberService;
 import com.example.utils.JwtUtils;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping()
+@RequestMapping("/member")
 @CrossOrigin("*")
 public class MemberController {
     private final MemberService memberService;
@@ -29,9 +30,7 @@ public class MemberController {
             @RequestBody @Valid MemberRegisterForm form
     ) {
         Member member = memberService.register(form.toEntity());
-//        String token = jwtUtils.generateToken(member);
         MemberTokenDTO dto = MemberTokenDTO.fromEntity(member);
-//        dto.setToken(token);
         return ResponseEntity.ok(dto);
     }
 

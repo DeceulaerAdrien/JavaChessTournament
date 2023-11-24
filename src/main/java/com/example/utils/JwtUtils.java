@@ -29,7 +29,7 @@ public class JwtUtils {
     public String generateToken(Member member) {
         return builder
                 .claim("id", member.getId())
-                .claim("Member_Username", member.getUsername())
+                .claim("username", member.getUsername())
                 .claim("role", member.getRole())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + config.expireAt * 1000L))
