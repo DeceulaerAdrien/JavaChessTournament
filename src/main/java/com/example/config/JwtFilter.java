@@ -39,7 +39,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
             if (type.equals("Bearer") && !token.isEmpty()) {
                 String username = this.utils.getUsername(token);
-                System.out.println(username);
+//                String email = this.utils.getEmail(token);
                 UserDetails user = this.userDetailsService.loadUserByUsername(username);
                 if (utils.isValid(token)) {
                     UsernamePasswordAuthenticationToken upat = new UsernamePasswordAuthenticationToken(
