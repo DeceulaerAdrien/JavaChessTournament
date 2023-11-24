@@ -38,13 +38,13 @@ public class JwtFilter extends OncePerRequestFilter {
             String token = authorizations[1];
 
             if (type.equals("Bearer") && !token.isEmpty()) {
-                String usermane= this.utils.getUsername(token);
-                UserDetails user = this.userDetailsService.loadUserByUsername(usermane);
+                String username = this.utils.getUsername(token);
+                System.out.println(username);
+                UserDetails user = this.userDetailsService.loadUserByUsername(username);
                 if (utils.isValid(token)) {
-
                     UsernamePasswordAuthenticationToken upat = new UsernamePasswordAuthenticationToken(
                             user,
-                            null,
+                            token,
                             user.getAuthorities());
                     SecurityContextHolder.getContext()
                             .setAuthentication(upat);

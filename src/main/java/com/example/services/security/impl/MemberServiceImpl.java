@@ -43,6 +43,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        return memberRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

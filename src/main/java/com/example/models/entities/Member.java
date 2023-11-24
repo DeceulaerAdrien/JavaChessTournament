@@ -3,9 +3,8 @@ package com.example.models.entities;
 import com.example.models.entities.enums.MemberGenderEnum;
 import com.example.models.entities.enums.security.RoleTypeEnum;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,6 +24,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @ToString(of = {"username", "password", "email", "role"})
 @Getter
+@DynamicInsert
 public class Member extends BaseEntity<Long> implements UserDetails {
 
     @Setter
@@ -63,9 +63,9 @@ public class Member extends BaseEntity<Long> implements UserDetails {
     private LocalDate birthDate;
 
     @Setter
-    @Column(name = "member_elo",
-            columnDefinition = "integer default 1200")
-    private int elo;
+    @Column(name = "member_elo")
+    @Range(min = 0,max = 3000)
+    private int elo = 1200;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
