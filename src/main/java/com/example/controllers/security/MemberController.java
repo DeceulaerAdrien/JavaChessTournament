@@ -1,5 +1,6 @@
 package com.example.controllers.security;
 
+import com.example.models.dtos.member.MemberShortDTO;
 import com.example.models.dtos.security.MemberTokenDTO;
 import com.example.models.entities.Member;
 
@@ -26,11 +27,11 @@ public class MemberController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/register")
-    public ResponseEntity<MemberTokenDTO> register(
+    public ResponseEntity<MemberShortDTO> register(
             @RequestBody @Valid MemberRegisterForm form
     ) {
         Member member = memberService.register(form.toEntity());
-        MemberTokenDTO dto = MemberTokenDTO.fromEntity(member);
+        MemberShortDTO dto = MemberShortDTO.fromEntity(member);
         return ResponseEntity.ok(dto);
     }
 

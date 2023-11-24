@@ -13,4 +13,5 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     boolean existsByUsername(String username);
     @Query("SELECT m FROM Member m where m.username ILIKE :username")
     Optional<Member> findByUsername(String username);
+
 }
