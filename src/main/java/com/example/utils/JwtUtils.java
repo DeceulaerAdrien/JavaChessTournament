@@ -41,16 +41,8 @@ public class JwtUtils {
         return parser.parseClaimsJws(token).getBody();
     }
 
-    public String getId(String token) {
-        return getClaims(token).get("id", String.class);
-    }
-
     public String getUsername(String token) {
         return getClaims(token).get("username", String.class);
-    }
-
-    public String getEmail(String token){
-        return getClaims(token).get("email",String.class);
     }
 
     public String getRole(String token) {
