@@ -16,4 +16,6 @@ public interface TournamentService {
 
     List<Tournament> getAll ();
 
+    Tournament update(Long id, Tournament tournament);
+
 }

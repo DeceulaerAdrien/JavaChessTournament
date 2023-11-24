@@ -11,6 +11,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -66,5 +67,8 @@ public class Tournament extends BaseEntity<Long> {
     @Setter
     @Column(name = "Tournament_end_inscription_date")
     private LocalDate endInscritpionDate;
+
+    @Setter
+    private Set<Member> listparticipant;
 
 }
