@@ -17,14 +17,14 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Getter
+@DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "member")
-@EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(callSuper = false)
+@EntityListeners(AuditingEntityListener.class)
 @ToString(of = {"username", "password", "email", "role"})
-@Getter
-@DynamicInsert
 public class Member extends BaseEntity<Long> implements UserDetails {
 
     @Setter
