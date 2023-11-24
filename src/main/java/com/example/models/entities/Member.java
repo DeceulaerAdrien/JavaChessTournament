@@ -4,7 +4,9 @@ import com.example.models.entities.enums.MemberGenderEnum;
 import com.example.models.entities.enums.security.RoleTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,48 +18,54 @@ import java.util.List;
 
 @Entity
 @Getter
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "member")
 @EqualsAndHashCode(callSuper = false)
+@EntityListeners(AuditingEntityListener.class)
 @ToString(of = {"username", "password", "email", "role"})
 public class Member extends BaseEntity<Long> implements UserDetails {
 
-    // Service tournois
-    @Column(name = "Member_Username",
-            length = 50,
-            unique = true)
     @Setter
+    @Column(name = "member_Username",
+            length = 50,
+            unique = true,
+            nullable = false)
     private String username;
 
-    @Column(name = "Member_Password")
     @Setter
+    @Column(name = "member_Password",
+            nullable = false)
     private String password;
 
-    @Column(name = "Member_Email",
-            length = 50,
-            unique = true)
     @Setter
+    @Column(name = "member_Email",
+            length = 50,
+            unique = true,
+            nullable = false)
     private String email;
 
-    @Column(name = "Member_Role")
-    @Enumerated(EnumType.STRING)
     @Setter
+    @Column(name = "member_Role",
+            nullable = false,
+            columnDefinition = "varchar default 'PLAYER'")
+    @Enumerated(EnumType.STRING)
     private RoleTypeEnum role;
 
-    @Column(name = "Member_Gender")
-    @Enumerated(EnumType.STRING)
     @Setter
+    @Column(name = "member_Gender", columnDefinition = "varchar default 'OTHER'")
+    @Enumerated(EnumType.STRING)
     private MemberGenderEnum gender;
 
-    @Column(name = "Member_Birth_Date")
     @Setter
+    @Column(name = "member_Birth_Date")
     private LocalDate birthDate;
 
-    @Column(name = "Member_Elo")
-    @Range(min = 0, max = 3000)
     @Setter
-    private int elo;
+    @Column(name = "member_elo")
+    @Range(min = 0,max = 3000)
+    private int elo = 1200;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -68,11 +76,8 @@ public class Member extends BaseEntity<Long> implements UserDetails {
     }
 
     @Override
-    public String getUsername(){return this.username;}
-
-    @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return false;
     }
 
     @Override
@@ -89,4 +94,5 @@ public class Member extends BaseEntity<Long> implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

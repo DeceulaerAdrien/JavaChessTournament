@@ -21,6 +21,7 @@ public class DataInitializer implements CommandLineRunner {
         admin.setUsername("Checkmate");
         admin.setRole(RoleTypeEnum.ADMIN);
         admin.setPassword(bCryptUtils.hash("adminPassword"));
+        admin.setEmail("misterCheckmat@test.com");
         memberRepository.save(admin);
     }
 }

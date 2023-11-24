@@ -5,7 +5,6 @@ import com.example.models.dtos.tournament.TournamentDTO;
 import com.example.models.entities.Tournament;
 import com.example.models.forms.TournamentForm;
 import com.example.services.TournamentService;
-import com.example.services.security.MemberService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
