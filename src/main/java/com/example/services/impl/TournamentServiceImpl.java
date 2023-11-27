@@ -5,6 +5,7 @@ import com.example.repositories.TournamentRepository;
 import com.example.services.TournamentService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -33,5 +34,24 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public List<Tournament> getAll() {
         return tournamentRepository.findAll();
+    }
+
+    @Override
+    public Tournament update(Long id, Tournament tournament) {
+        Tournament changeTournament = tournamentRepository.findById(id).orElseThrow();
+        changeTournament.setName(tournament.getName());
+        changeTournament.setLocation(tournament.getLocation());
+        changeTournament.setCategorie(tournament.getCategorie());
+        changeTournament.setStatut(tournament.getStatut());
+        changeTournament.setMaxElo(tournament.getMaxElo());
+        changeTournament.setMinElo(tournament.getMinElo());
+        changeTournament.setMaxPlayer(tournament.getMaxPlayer());
+        changeTournament.setMinPlayer(tournament.getMinPlayer());
+        changeTournament.setWomenOnly(tournament.isWomenOnly());
+        changeTournament.setRound(tournament.getRound());
+        changeTournament.setEndInscritpionDate(tournament.getEndInscritpionDate());
+        changeTournament.setUpdateAt(LocalDate.now());
+        return this.tournamentRepository.save(tournament);
+
     }
 }
