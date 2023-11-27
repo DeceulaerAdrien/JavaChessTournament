@@ -15,7 +15,7 @@ public record TounamentShortDTO(
 
 ) {
     public static TounamentShortDTO fromEntity(Tournament tournament){
-        Set<MemberShortDTO> memberShortDTOS = tournament.getListparticipant().stream()
+        Set<MemberShortDTO> memberShortDTOS = tournament.getMemberSet().stream()
                 .map(MemberShortDTO :: fromEntity).collect(Collectors.toSet());
         return new TounamentShortDTO(tournament.getId(),tournament.getName(),memberShortDTOS);
     }

@@ -24,8 +24,8 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Override
     public void delete(Long id) {
-        Tournament tournament1 = this.getbyId(id);
-        this.tournamentRepository.delete(tournament1);
+        Tournament tournament = this.getbyId(id);
+        this.tournamentRepository.delete(tournament);
     }
     @Override
     public Tournament getbyId(Long id) {
@@ -51,7 +51,7 @@ public class TournamentServiceImpl implements TournamentService {
         changeTournament.setRound(tournament.getRound());
         changeTournament.setEndInscritpionDate(tournament.getEndInscritpionDate());
         changeTournament.setUpdateAt(LocalDate.now());
-        return this.tournamentRepository.save(tournament);
+        return this.tournamentRepository.save(changeTournament);
 
     }
 }
