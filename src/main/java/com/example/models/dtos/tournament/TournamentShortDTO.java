@@ -6,7 +6,7 @@ import com.example.models.entities.Tournament;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public record TounamentShortDTO(
+public record TournamentShortDTO(
         Long id,
 
         String name,
@@ -14,9 +14,11 @@ public record TounamentShortDTO(
         Set<MemberShortDTO> memberShortDTOSet
 
 ) {
-    public static TounamentShortDTO fromEntity(Tournament tournament){
+    public static TournamentShortDTO fromEntity(Tournament tournament) {
+
         Set<MemberShortDTO> memberShortDTOS = tournament.getMemberSet().stream()
-                .map(MemberShortDTO :: fromEntity).collect(Collectors.toSet());
-        return new TounamentShortDTO(tournament.getId(),tournament.getName(),memberShortDTOS);
+                .map(MemberShortDTO::fromEntity).collect(Collectors.toSet());
+
+        return new TournamentShortDTO(tournament.getId(), tournament.getName(), memberShortDTOS);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.services.impl;
 
+import com.example.exceptions.tournament.AlreadyStartTournamentException;
 import com.example.models.entities.Tournament;
 import com.example.repositories.TournamentRepository;
 import com.example.services.TournamentService;
@@ -25,15 +26,18 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public void delete(Long id) {
         Tournament tournament = this.getbyId(id);
+        if (tournament.getStatut().toString().equals("EN_COURS"))
+            throw new AlreadyStartTournamentException();
         this.tournamentRepository.delete(tournament);
     }
     @Override
     public Tournament getbyId(Long id) {
         return this.tournamentRepository.findById(id).orElseThrow();
     }
+
     @Override
     public List<Tournament> getAll() {
-        return tournamentRepository.findAll();
+        return tournamentRepository.findTen();
     }
 
     @Override
