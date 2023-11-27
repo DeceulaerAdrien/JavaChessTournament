@@ -1,7 +1,6 @@
 package com.example.controllers;
 
 
-import com.example.models.dtos.tournament.TounamentShortDTO;
 import com.example.models.dtos.tournament.TournamentDTO;
 import com.example.models.entities.Tournament;
 import com.example.models.forms.TournamentForm;
@@ -35,10 +34,10 @@ public class TournamentController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<TounamentShortDTO>> getAll() {
+    public ResponseEntity<List<TournamentDTO>> getAll() {
         List<Tournament> tournaments = tournamentService.getAll();
-        List<TounamentShortDTO> tounamentShortDTOS = tournaments.stream().map(TounamentShortDTO::fromEntity).toList();
-        return ResponseEntity.ok(tounamentShortDTOS);
+        List<TournamentDTO> tournamentDTO = tournaments.stream().map(TournamentDTO::fromEntity).toList();
+        return ResponseEntity.ok(tournamentDTO);
     }
 
     @PutMapping(path = "/update/{id}")

@@ -2,6 +2,11 @@ package com.example.repositories;
 
 import com.example.models.entities.Tournament;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-public interface TournamentRepository extends JpaRepository<Tournament,Long> {
+import java.util.List;
+
+public interface TournamentRepository extends JpaRepository<Tournament, Long> {
+    @Query("SELECT t FROM Tournament t ORDER BY t.updateAt DESC LIMIT 10")
+    List<Tournament> findTen();
 }
