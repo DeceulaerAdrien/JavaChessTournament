@@ -1,7 +1,7 @@
 package com.example.models.dtos.tournament;
 
 import com.example.models.entities.Tournament;
-import lombok.*;
+import com.example.models.entities.enums.TournamentStatutEnum;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,7 @@ public record TournamentDTO(
         Long id,
         String name,
         String location,
-        String statut,
+        TournamentStatutEnum statut,
         LocalDate endInscriptionDate,
         int minElo,
         int maxElo,

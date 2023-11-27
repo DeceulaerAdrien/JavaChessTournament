@@ -2,16 +2,22 @@ package com.example.models.forms;
 
 import com.example.models.entities.Tournament;
 
-import com.example.models.entities.enums.TournamentCategoriesEnum;
+import com.example.models.entities.enums.TournamentCategorieEnum;
 
+import com.example.models.entities.enums.TournamentStatutEnum;
+import com.example.validators.InscriptionEndDate;
+import com.example.validators.MinMaxElo;
+import com.example.validators.MinMaxPlayer;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Range;
 
 import java.time.LocalDate;
 
+@MinMaxPlayer
+@MinMaxElo
+@InscriptionEndDate
 public record TournamentForm(
         @NotBlank
         @Size(max = 50)
@@ -22,10 +28,8 @@ public record TournamentForm(
         String location,
 
         @NotNull
-        TournamentCategoriesEnum categoriesEnum,
-
-        @NotBlank
-        String statut,
+        TournamentCategorieEnum categoriesEnum,
+        TournamentStatutEnum statut,
 
         @NotNull
         @Range(min = 2, max = 32)
@@ -63,6 +67,21 @@ public record TournamentForm(
         tournament.setEndInscritpionDate(this.endInscriptionDate);
         return tournament;
     }
+
+//    public static TournamentForm fromEntity(Tournament tournament) {
+//        return new TournamentForm(
+//                tournament.getName(),
+//                tournament.getLocation(),
+//                tournament.getCategorie(),
+//                tournament.getStatut(),
+//                tournament.getMinPlayer(),
+//                tournament.getMaxPlayer(),
+//                tournament.getMinElo(),
+//                tournament.getMaxElo(),
+//                tournament.isWomenOnly(),
+//                tournament.getEndInscritpionDate()
+//        );
+//    }
 }
 
 

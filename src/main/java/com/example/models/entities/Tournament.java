@@ -1,23 +1,25 @@
 package com.example.models.entities;
 
-import com.example.models.entities.enums.TournamentCategoriesEnum;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.example.models.entities.enums.TournamentCategorieEnum;
+import com.example.models.entities.enums.TournamentStatutEnum;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Getter
+@DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@EntityListeners(AuditingEntityListener.class)
 public class Tournament extends BaseEntity<Long> {
 
     @Setter
@@ -31,11 +33,12 @@ public class Tournament extends BaseEntity<Long> {
     @Setter
     @Column(name = "Tournament_categorie")
     @Enumerated(EnumType.STRING)
-    private TournamentCategoriesEnum categorie;
+    private TournamentCategorieEnum categorie;
 
     @Setter
-    @Column(name = "Tournament_statut")
-    private String statut;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Tournament_statut", columnDefinition = "varchar default 'EN_ATTENTE_DE_JOUEUR'")
+    private TournamentStatutEnum statut;
 
     @Setter
     @Column(name = "Tournament_min_player")
@@ -68,7 +71,18 @@ public class Tournament extends BaseEntity<Long> {
     @Column(name = "Tournament_end_inscription_date")
     private LocalDate endInscritpionDate;
 
-    @Setter
-    private Set<Member> listparticipant;
+    @ManyToMany(mappedBy = "tournamentSet", fetch = FetchType.EAGER)
+    private Set<Member> memberSet = new HashSet<>();
 
+    public Set<Member> getMemberSet() {
+        return Set.copyOf(this.memberSet);
+    }
+
+    public void addMember(Member member) {
+        this.memberSet.add(member);
+    }
+
+    public void removeMember(Member member) {
+        this.memberSet.remove(member);
+    }
 }

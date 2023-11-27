@@ -1,6 +1,6 @@
 package com.example.models.entities.enums;
 
-public enum TournamentCategoriesEnum {
+public enum TournamentCategorieEnum {
     JUNIOR,
     SENIOR,
     VETERAN

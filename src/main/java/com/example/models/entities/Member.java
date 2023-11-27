@@ -12,16 +12,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
 @DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "member")
 @EqualsAndHashCode(callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
 @ToString(of = {"username", "password", "email", "role"})
@@ -64,8 +61,28 @@ public class Member extends BaseEntity<Long> implements UserDetails {
 
     @Setter
     @Column(name = "member_elo")
-    @Range(min = 0,max = 3000)
+    @Range(min = 0, max = 3000)
     private int elo = 1200;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "MEMBER_TOURNAMENT",
+            joinColumns = @JoinColumn(name = "MEMBER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "TOURNAMENT_ID")
+    )
+    private Set<Tournament> tournamentSet = new HashSet<>();
+
+    public Set<Tournament> getTournamentSet() {
+        return Set.copyOf(this.tournamentSet);
+    }
+
+    public void addTournament(Tournament tournament){
+        this.tournamentSet.add(tournament);
+        tournament.addMember(this);
+    }    public void removeTournament(Tournament tournament){
+        this.tournamentSet.remove(tournament);
+        tournament.removeMember(this);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
