@@ -1,7 +1,7 @@
 package com.example.services.impl;
 
 import com.example.exceptions.member.AlreadyExistMemberException;
-import com.example.exceptions.tournament.AlreadyStartTournamentException;
+import com.example.exceptions.tournament.*;
 import com.example.models.entities.Member;
 import com.example.models.entities.Tournament;
 import com.example.models.entities.enums.MemberGenderEnum;
@@ -79,21 +79,21 @@ public class TournamentServiceImpl implements TournamentService {
         if (tournament.getStatut().toString().equals("EN_COURS"))
             throw new AlreadyStartTournamentException("Vous ne pouvez pas vous inscrire à un tournois qui a déja commencé.");
         if(tournament.getEndInscritpionDate().isBefore(LocalDate.now()))
-            throw new RuntimeException();
+            throw new EndOfInscriptionException();
         if (tournament.getMemberSet().contains(member))
-            throw new AlreadyExistMemberException();
+            throw new AlreadyInTournamentException();
         if (tournament.getMemberSet().size() == tournament.getMaxPlayer())
-            throw new RuntimeException();
-//        if (member.getBirthDate().until(LocalDate.now()).getYears() < 18 && !(tournament.getCategorie().contains(TournamentCategorieEnum.JUNIOR)))
-//            throw new RuntimeException();
-//        if (member.getBirthDate().until(LocalDate.now()).getYears() >= 18 && !(tournament.getCategorie().contains(TournamentCategorieEnum.SENIOR)))
-//            throw new RuntimeException();
-//        if (member.getBirthDate().until(LocalDate.now()).getYears() >= 60 && !(tournament.getCategorie().contains(TournamentCategorieEnum.VETERAN)))
-  //          throw new RuntimeException();
+            throw new MaxNumberOfPlayerException();
+        if (member.getBirthDate().until(LocalDate.now()).getYears() < 18 && !(tournament.getCategorie().contains(TournamentCategorieEnum.JUNIOR)))
+            throw new WrongCategorieException();
+        if (member.getBirthDate().until(LocalDate.now()).getYears() >= 18 && !(tournament.getCategorie().contains(TournamentCategorieEnum.SENIOR)))
+            throw new WrongCategorieException();
+        if (member.getBirthDate().until(LocalDate.now()).getYears() >= 60 && !(tournament.getCategorie().contains(TournamentCategorieEnum.VETERAN)))
+            throw new WrongCategorieException();
         if (member.getElo() < tournament.getMinElo() || member.getElo() > tournament.getMaxElo())
-            throw new RuntimeException();
+            throw new BadNumberOfEloException();
         if (tournament.isWomenOnly() && !(member.getGender().equals(MemberGenderEnum.FEMALE)))
-            throw new RuntimeException();
+            throw new WrongGenderException();
 
         tournament.addMember(member);
 
@@ -113,7 +113,7 @@ public class TournamentServiceImpl implements TournamentService {
         if (tournament.getStatut().toString().equals("EN_COURS"))
             throw new AlreadyStartTournamentException("Vous ne pouvez pas quitter un tournois qui a déja débuté.");
         if (!tournament.getMemberSet().contains(member))
-            throw new AlreadyExistMemberException();
+            throw new AlreadyInTournamentException("Vous n'êtes pas inscrit à ce tournois.");
 
         tournament.removeMember(member);
 
