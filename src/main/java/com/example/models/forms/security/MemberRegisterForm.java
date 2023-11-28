@@ -4,6 +4,7 @@ import com.example.models.entities.Member;
 import com.example.models.entities.enums.MemberGenderEnum;
 import com.example.models.entities.enums.security.RoleTypeEnum;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 
@@ -29,6 +30,7 @@ public record MemberRegisterForm(
         MemberGenderEnum gender,
 
 
+        @NotNull
         LocalDate birthDate,
 
         int elo

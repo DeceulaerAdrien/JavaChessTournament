@@ -2,6 +2,7 @@ package com.example.controllers;
 
 
 import com.example.models.dtos.tournament.TournamentDTO;
+import com.example.models.dtos.tournament.TournamentDetailDTO;
 import com.example.models.entities.Tournament;
 import com.example.models.forms.TournamentForm;
 import com.example.services.TournamentService;
@@ -83,5 +84,18 @@ public class TournamentController {
 
         tournamentService.inscription(memberId, id);
         return ResponseEntity.status(200).body("Inscription validée");
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PatchMapping("/desinscription/{id}")
+    public ResponseEntity<Object> desinscription(
+            Authentication authentication,
+            @PathVariable Long id
+    ) {
+        String token = authentication.getCredentials().toString();
+        Long memberId = jwtUtils.getId(token);
+
+        tournamentService.desinscription(memberId, id);
+        return ResponseEntity.status(200).body("Vous n'êtes plus inscrit dans le tournois");
     }
 }
