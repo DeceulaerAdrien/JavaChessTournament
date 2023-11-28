@@ -34,7 +34,14 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member login(Member member) {
-        Member existingMember = memberRepository.findByUsername(member.getUsername()).orElseThrow();
+        Member existingMember;
+        if (memberRepository.findByUsername(member.getUsername()).isPresent()) {
+            existingMember = memberRepository.findByUsername(member.getUsername()).orElseThrow();
+        } else if ((memberRepository.findByUsername(member.getEmail()).isPresent())) {
+            existingMember = memberRepository.findByEmail(member.getEmail()).orElseThrow();
+        } else {
+            throw new RuntimeException("Email or username not valid !");
+        }
         if (!bCryptUtils.verify(member.getPassword(), existingMember.getPassword())) {
             throw new RuntimeException("Wrong Password");
         }
