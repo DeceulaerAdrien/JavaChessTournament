@@ -5,22 +5,27 @@ import com.example.models.dtos.tournament.TournamentDTO;
 import com.example.models.entities.Tournament;
 import com.example.models.forms.TournamentForm;
 import com.example.services.TournamentService;
+import com.example.utils.JwtUtils;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/tournament")
 public class TournamentController {
     private final TournamentService tournamentService;
+    private final JwtUtils jwtUtils;
 
-    public TournamentController(TournamentService tournamentService) {
+    public TournamentController(TournamentService tournamentService, JwtUtils jwtUtils) {
         this.tournamentService = tournamentService;
+        this.jwtUtils = jwtUtils;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(path = "/create")
     public ResponseEntity<TournamentDTO> create(@RequestBody @Valid TournamentForm tournamentForm) {
         Tournament tournament = tournamentService.create(tournamentForm.toEntity());
@@ -40,6 +45,7 @@ public class TournamentController {
         return ResponseEntity.ok(tournamentDTO);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<TournamentDTO> update(
             @PathVariable("id") Long id,
@@ -49,6 +55,7 @@ public class TournamentController {
         return ResponseEntity.ok(tournamentDTO);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(
             @PathVariable("id") Long id
@@ -56,5 +63,18 @@ public class TournamentController {
 
         this.tournamentService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PatchMapping("/{tournamentId}")
+    public ResponseEntity<Object> inscription(
+            Authentication authentication,
+            @PathVariable Long tournamentId
+    ){
+        String token = authentication.getCredentials().toString();
+        Long memberId = jwtUtils.getId(token);
+
+        tournamentService.inscription(memberId,tournamentId);
+        return ResponseEntity.status(200).body("Inscription finalisée");
     }
 }

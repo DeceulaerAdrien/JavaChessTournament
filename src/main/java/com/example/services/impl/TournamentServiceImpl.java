@@ -1,8 +1,10 @@
 package com.example.services.impl;
 
 import com.example.exceptions.tournament.AlreadyStartTournamentException;
+import com.example.models.entities.Member;
 import com.example.models.entities.Tournament;
 import com.example.repositories.TournamentRepository;
+import com.example.repositories.security.MemberRepository;
 import com.example.services.TournamentService;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,12 @@ import java.util.List;
 @Service
 public class TournamentServiceImpl implements TournamentService {
 
-    public final TournamentRepository tournamentRepository;
+    private final TournamentRepository tournamentRepository;
+    private final MemberRepository memberRepository;
 
-    public TournamentServiceImpl(TournamentRepository tournamentRepository) {
+    public TournamentServiceImpl(TournamentRepository tournamentRepository, MemberRepository memberRepository) {
         this.tournamentRepository = tournamentRepository;
+        this.memberRepository = memberRepository;
     }
 
     @Override
@@ -56,6 +60,22 @@ public class TournamentServiceImpl implements TournamentService {
         changeTournament.setEndInscritpionDate(tournament.getEndInscritpionDate());
         changeTournament.setUpdateAt(LocalDate.now());
         return this.tournamentRepository.save(changeTournament);
+
+    }
+
+    @Override
+    public void inscription(Long memberId, Long tournamentId) {
+        Member member = memberRepository.findById(memberId).orElseThrow();
+        Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
+
+        member.addTournament(tournament);
+
+        memberRepository.save(member);
+        tournamentRepository.save(tournament);
+    }
+
+    @Override
+    public void desinscription(Long id) {
 
     }
 }
