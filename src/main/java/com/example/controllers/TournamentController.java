@@ -33,12 +33,6 @@ public class TournamentController {
         return ResponseEntity.ok(TournamentDTO.fromEntity(tournament));
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<TournamentDTO> getById(@PathVariable("id") Long id) {
-        TournamentDTO tournamentDTO = TournamentDTO.fromEntity(this.tournamentService.getbyId(id));
-        return ResponseEntity.ok(tournamentDTO);
-    }
-
     @GetMapping("/list")
     public ResponseEntity<List<TournamentDTO>> getTenNotOVer() {
         List<Tournament> tournaments = tournamentService.getTenNotOVer();
