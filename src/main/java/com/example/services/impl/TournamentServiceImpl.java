@@ -44,6 +44,11 @@ public class TournamentServiceImpl implements TournamentService {
         return tournamentRepository.findTenNotOver();      }
 
     @Override
+    public List<Tournament> getDetails(long id) {
+        return null;
+    }
+
+    @Override
     public Tournament update(Long id, Tournament tournament) {
         Tournament changeTournament = tournamentRepository.findById(id).orElseThrow();
         changeTournament.setName(tournament.getName());
@@ -67,7 +72,7 @@ public class TournamentServiceImpl implements TournamentService {
         Member member = memberRepository.findById(memberId).orElseThrow();
         Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
 
-        member.addTournament(tournament);
+        tournament.addMember(member);
 
         memberRepository.save(member);
         tournamentRepository.save(tournament);
