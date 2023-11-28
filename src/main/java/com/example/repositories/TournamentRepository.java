@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface TournamentRepository extends JpaRepository<Tournament, Long> {
-    @Query("SELECT t FROM Tournament t ORDER BY t.updateAt DESC LIMIT 10")
+    @Query("SELECT t FROM Tournament t Where t.statut not Like 'FINI' ORDER BY t.updateAt DESC LIMIT 10")
     List<Tournament> findTen();
 }
