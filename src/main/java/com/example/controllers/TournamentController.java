@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tournament")
+@CrossOrigin("*")
 public class TournamentController {
     private final TournamentService tournamentService;
     private final JwtUtils jwtUtils;
