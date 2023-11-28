@@ -23,7 +23,7 @@ public class DataInitializer implements CommandLineRunner {
         admin.setRole(RoleTypeEnum.ADMIN);
         admin.setPassword(bCryptUtils.hash("adminPassword"));
         admin.setEmail("misterCheckmat@test.com");
-        admin.setBirthDate(new LocalDate(1997,7,19));
+        admin.setBirthDate(LocalDate.of(1997, 8, 19));
         memberRepository.save(admin);
     }
 }
