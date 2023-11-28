@@ -18,7 +18,7 @@ import java.util.Set;
 @DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(of = {"name", "location"}, callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
 public class Tournament extends BaseEntity<Long> {
 
@@ -80,6 +80,7 @@ public class Tournament extends BaseEntity<Long> {
 
     public void addMember(Member member) {
         this.memberSet.add(member);
+        member.addTournament(this);
     }
 
     public void removeMember(Member member) {

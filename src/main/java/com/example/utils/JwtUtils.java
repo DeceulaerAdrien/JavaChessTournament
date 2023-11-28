@@ -31,9 +31,9 @@ public class JwtUtils {
                 .claim("id", member.getId())
                 .claim("username", member.getUsername())
                 .claim("role", member.getRole())
-                .claim("email",member.getEmail())
+                .claim("email", member.getEmail())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + config.expireAt * 1000L))
+                .setExpiration(new Date(System.currentTimeMillis() + (config.expireAt * 1000L)))
                 .compact();
     }
 
@@ -44,6 +44,7 @@ public class JwtUtils {
     public String getUsername(String token) {
         return getClaims(token).get("username", String.class);
     }
+
     public Long getId(String token) {
         return getClaims(token).get("id", Long.class);
     }

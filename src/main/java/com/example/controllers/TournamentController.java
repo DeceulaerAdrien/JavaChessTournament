@@ -40,7 +40,7 @@ public class TournamentController {
 
     @GetMapping("/list")
     public ResponseEntity<List<TournamentDTO>> getAll() {
-        List<Tournament> tournaments = tournamentService.getAll();
+        List<Tournament> tournaments = tournamentService.getTenNotOVer();
         List<TournamentDTO> tournamentDTO = tournaments.stream().map(TournamentDTO::fromEntity).toList();
         return ResponseEntity.ok(tournamentDTO);
     }

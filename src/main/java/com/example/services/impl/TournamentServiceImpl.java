@@ -40,8 +40,12 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public List<Tournament> getAll() {
-        return tournamentRepository.findTen();
+    public List<Tournament> getTenNotOVer() {
+        return tournamentRepository.findTenNotOver();      }
+
+    @Override
+    public List<Tournament> getDetails(long id) {
+        return null;
     }
 
     @Override
@@ -68,7 +72,7 @@ public class TournamentServiceImpl implements TournamentService {
         Member member = memberRepository.findById(memberId).orElseThrow();
         Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
 
-        member.addTournament(tournament);
+        tournament.addMember(member);
 
         memberRepository.save(member);
         tournamentRepository.save(tournament);
