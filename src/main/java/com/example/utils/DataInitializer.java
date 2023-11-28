@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-
+import java.time.LocalDate;
 
 
 @Component
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class DataInitializer implements CommandLineRunner {
     private final MemberRepository memberRepository;
     private final BCryptUtils bCryptUtils;
+
     @Override
     public void run(String... args) throws RuntimeException {
         Member admin = new Member();
@@ -22,6 +23,7 @@ public class DataInitializer implements CommandLineRunner {
         admin.setRole(RoleTypeEnum.ADMIN);
         admin.setPassword(bCryptUtils.hash("adminPassword"));
         admin.setEmail("misterCheckmat@test.com");
+        admin.setBirthDate(new LocalDate(1997,7,19));
         memberRepository.save(admin);
     }
 }
