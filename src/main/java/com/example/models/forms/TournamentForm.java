@@ -14,6 +14,7 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Range;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @MinMaxPlayer
 @MinMaxElo
@@ -28,7 +29,7 @@ public record TournamentForm(
         String location,
 
         @NotNull
-        TournamentCategorieEnum categoriesEnum,
+        Set<TournamentCategorieEnum> categoriesEnum,
         TournamentStatutEnum statut,
 
         @NotNull

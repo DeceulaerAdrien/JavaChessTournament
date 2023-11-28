@@ -1,8 +1,11 @@
 package com.example.services.impl;
 
+import com.example.exceptions.member.AlreadyExistMemberException;
 import com.example.exceptions.tournament.AlreadyStartTournamentException;
 import com.example.models.entities.Member;
 import com.example.models.entities.Tournament;
+import com.example.models.entities.enums.MemberGenderEnum;
+import com.example.models.entities.enums.TournamentCategorieEnum;
 import com.example.repositories.TournamentRepository;
 import com.example.repositories.security.MemberRepository;
 import com.example.services.TournamentService;
@@ -71,6 +74,19 @@ public class TournamentServiceImpl implements TournamentService {
     public void inscription(Long memberId, Long tournamentId) {
         Member member = memberRepository.findById(memberId).orElseThrow();
         Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
+        if (tournament.getStatut().toString().equals("EN_COURS"))
+            throw new AlreadyStartTournamentException("Vous ne pouvez pas vous inscrire à un tournois qui a déja commencé.");
+        if(tournament.getEndInscritpionDate().isAfter(LocalDate.now()))
+            throw new RuntimeException();
+        if (tournament.getMemberSet().contains(member))
+            throw new AlreadyExistMemberException();
+        if (tournament.getMemberSet().size() == tournament.getMaxPlayer())
+            throw new RuntimeException();
+        if (member.getBirthDate().until(LocalDate.now()).getYears() > 18 && tournament.getCategorie().contains(TournamentCategorieEnum.JUNIOR))
+            throw new RuntimeException();
+        if (member.getElo() < tournament.getMinElo() || member.getElo() > tournament.getMaxElo())
+            throw new RuntimeException();
+        if (tournament.isWomenOnly() && !(member.getGender().equals(MemberGenderEnum.FEMALE)))
 
         tournament.addMember(member);
 
@@ -80,12 +96,19 @@ public class TournamentServiceImpl implements TournamentService {
 
     }
 
+
     @Override
     public void desinscription(Long memberId , Long tournamentId) {
+
         Member member = memberRepository.findById(memberId).orElseThrow();
         Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
 
-        member.removeTournament(tournament);
+        if (tournament.getStatut().toString().equals("EN_COURS"))
+            throw new AlreadyStartTournamentException("Vous ne pouvez pas quitter un tournois qui a déja débuté.");
+        if (!tournament.getMemberSet().contains(member))
+            throw new AlreadyExistMemberException();
+
+        tournament.removeMember(member);
 
         memberRepository.save(member);
         tournamentRepository.save(tournament);

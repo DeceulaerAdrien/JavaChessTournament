@@ -33,7 +33,7 @@ public class Tournament extends BaseEntity<Long> {
     @Setter
     @Column(name = "Tournament_categorie")
     @Enumerated(EnumType.STRING)
-    private TournamentCategorieEnum categorie;
+    private Set<TournamentCategorieEnum> categorie;
 
     @Setter
     @Enumerated(EnumType.STRING)
