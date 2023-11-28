@@ -66,7 +66,7 @@ public class TournamentController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PatchMapping("/{tournamentId}")
+    @PatchMapping("/inscription/{tournamentId}")
     public ResponseEntity<Object> inscription(
             Authentication authentication,
             @PathVariable Long tournamentId
@@ -75,6 +75,6 @@ public class TournamentController {
         Long memberId = jwtUtils.getId(token);
 
         tournamentService.inscription(memberId,tournamentId);
-        return ResponseEntity.status(200).body("Inscription finalisée");
+        return ResponseEntity.status(200).body("Inscription validée");
     }
 }
