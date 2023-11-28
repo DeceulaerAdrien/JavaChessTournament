@@ -78,17 +78,22 @@ public class TournamentServiceImpl implements TournamentService {
         Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
         if (tournament.getStatut().toString().equals("EN_COURS"))
             throw new AlreadyStartTournamentException("Vous ne pouvez pas vous inscrire à un tournois qui a déja commencé.");
-        if(tournament.getEndInscritpionDate().isAfter(LocalDate.now()))
+        if(tournament.getEndInscritpionDate().isBefore(LocalDate.now()))
             throw new RuntimeException();
         if (tournament.getMemberSet().contains(member))
             throw new AlreadyExistMemberException();
         if (tournament.getMemberSet().size() == tournament.getMaxPlayer())
             throw new RuntimeException();
-        if (member.getBirthDate().until(LocalDate.now()).getYears() > 18 && tournament.getCategorie().contains(TournamentCategorieEnum.JUNIOR))
-            throw new RuntimeException();
+//        if (member.getBirthDate().until(LocalDate.now()).getYears() < 18 && !(tournament.getCategorie().contains(TournamentCategorieEnum.JUNIOR)))
+//            throw new RuntimeException();
+//        if (member.getBirthDate().until(LocalDate.now()).getYears() >= 18 && !(tournament.getCategorie().contains(TournamentCategorieEnum.SENIOR)))
+//            throw new RuntimeException();
+//        if (member.getBirthDate().until(LocalDate.now()).getYears() >= 60 && !(tournament.getCategorie().contains(TournamentCategorieEnum.VETERAN)))
+  //          throw new RuntimeException();
         if (member.getElo() < tournament.getMinElo() || member.getElo() > tournament.getMaxElo())
             throw new RuntimeException();
         if (tournament.isWomenOnly() && !(member.getGender().equals(MemberGenderEnum.FEMALE)))
+            throw new RuntimeException();
 
         tournament.addMember(member);
 

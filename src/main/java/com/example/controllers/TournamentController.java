@@ -85,4 +85,17 @@ public class TournamentController {
         tournamentService.inscription(memberId, id);
         return ResponseEntity.status(200).body("Inscription validée");
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @PatchMapping("/desinscription/{id}")
+    public ResponseEntity<Object> desinscription(
+            Authentication authentication,
+            @PathVariable Long id
+    ) {
+        String token = authentication.getCredentials().toString();
+        Long memberId = jwtUtils.getId(token);
+
+        tournamentService.desinscription(memberId, id);
+        return ResponseEntity.status(200).body("Vous n'êtes plus inscrit dans le tournois");
+    }
 }

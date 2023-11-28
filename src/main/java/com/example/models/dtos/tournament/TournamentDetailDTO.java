@@ -2,6 +2,7 @@ package com.example.models.dtos.tournament;
 
 import com.example.models.dtos.member.MemberShortDTO;
 import com.example.models.entities.Tournament;
+import com.example.models.entities.enums.TournamentCategorieEnum;
 import com.example.models.entities.enums.TournamentStatutEnum;
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ public record TournamentDetailDTO(
         Long id,
         String name,
         String location,
+        Set<TournamentCategorieEnum> categorieEnumSet,
         TournamentStatutEnum statut,
         LocalDate endInscriptionDate,
         int maxPlayer,
@@ -35,6 +37,7 @@ public record TournamentDetailDTO(
                 tournament.getId(),
                 tournament.getName(),
                 tournament.getLocation(),
+                tournament.getCategorie(),
                 tournament.getStatut(),
                 tournament.getEndInscritpionDate(),
                 tournament.getMinPlayer(),
