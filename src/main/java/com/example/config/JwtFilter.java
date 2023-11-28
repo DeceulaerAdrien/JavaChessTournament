@@ -45,11 +45,10 @@ public class JwtFilter extends OncePerRequestFilter {
                             user,
                             token,
                             user.getAuthorities());
-                    SecurityContextHolder.getContext()
-                            .setAuthentication(upat);
+                    SecurityContextHolder.getContext().setAuthentication(upat);
                 }
             }
         }
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 }

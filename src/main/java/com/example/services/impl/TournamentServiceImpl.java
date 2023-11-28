@@ -36,9 +36,8 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
-    public List<Tournament> getAll() {
-        return tournamentRepository.findTen();
-    }
+    public List<Tournament> getTenNotOVer() {
+        return tournamentRepository.findTenNotOver();      }
 
     @Override
     public Tournament update(Long id, Tournament tournament) {
