@@ -31,9 +31,9 @@ public class JwtUtils {
                 .claim("id", member.getId())
                 .claim("username", member.getUsername())
                 .claim("role", member.getRole())
-                .claim("email",member.getEmail())
+                .claim("email", member.getEmail())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + config.expireAt * 1000L))
+                .setExpiration(new Date(System.currentTimeMillis() + (config.expireAt * 1000L)))
                 .compact();
     }
 
