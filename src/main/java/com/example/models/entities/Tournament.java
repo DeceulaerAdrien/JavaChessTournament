@@ -23,7 +23,7 @@ import java.util.Set;
 public class Tournament extends BaseEntity<Long> {
 
     @Setter
-    @Column(name = "Tournament_name")
+    @Column(name = "Tournament_name", nullable = false)
     private String name;
 
     @Setter
@@ -71,7 +71,12 @@ public class Tournament extends BaseEntity<Long> {
     @Column(name = "Tournament_end_inscription_date")
     private LocalDate endInscritpionDate;
 
-    @ManyToMany(mappedBy = "tournamentSet", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "MEMBER_TOURNAMENT",
+            joinColumns = @JoinColumn(name = "TOURNAMENT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "MEMBER_ID")
+    )
     private Set<Member> memberSet = new HashSet<>();
 
     public Set<Member> getMemberSet() {

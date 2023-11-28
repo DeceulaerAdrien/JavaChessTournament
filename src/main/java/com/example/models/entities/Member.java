@@ -64,12 +64,7 @@ public class Member extends BaseEntity<Long> implements UserDetails {
     @Range(min = 0, max = 3000)
     private int elo = 1200;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "MEMBER_TOURNAMENT",
-            joinColumns = @JoinColumn(name = "MEMBER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "TOURNAMENT_ID")
-    )
+    @ManyToMany(mappedBy = "memberSet", fetch = FetchType.EAGER)
     private Set<Tournament> tournamentSet = new HashSet<>();
 
     public Set<Tournament> getTournamentSet() {

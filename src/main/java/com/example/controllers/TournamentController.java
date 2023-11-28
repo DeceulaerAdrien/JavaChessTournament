@@ -2,6 +2,7 @@ package com.example.controllers;
 
 
 import com.example.models.dtos.tournament.TournamentDTO;
+import com.example.models.dtos.tournament.TournamentDetailDTO;
 import com.example.models.entities.Tournament;
 import com.example.models.forms.TournamentForm;
 import com.example.services.TournamentService;
@@ -39,11 +40,18 @@ public class TournamentController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<TournamentDTO>> getAll() {
+    public ResponseEntity<List<TournamentDTO>> getTenNotOVer() {
         List<Tournament> tournaments = tournamentService.getTenNotOVer();
         List<TournamentDTO> tournamentDTO = tournaments.stream().map(TournamentDTO::fromEntity).toList();
         return ResponseEntity.ok(tournamentDTO);
     }
+
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<TournamentDetailDTO> getDetail(@PathVariable("id") Long id) {
+        TournamentDetailDTO tournamentDetailDTO = TournamentDetailDTO.fromEntity(this.tournamentService.getDetails(id));
+        return ResponseEntity.ok(tournamentDetailDTO);
+    }
+
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping(path = "/update/{id}")
@@ -66,30 +74,15 @@ public class TournamentController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PatchMapping("/inscription/{tournamentId}")
+    @PatchMapping("/inscription/{id}")
     public ResponseEntity<Object> inscription(
             Authentication authentication,
-            @PathVariable Long tournamentId
-    ){
+            @PathVariable Long id
+    ) {
         String token = authentication.getCredentials().toString();
         Long memberId = jwtUtils.getId(token);
 
-        tournamentService.inscription(memberId,tournamentId);
-
+        tournamentService.inscription(memberId, id);
         return ResponseEntity.status(200).body("Inscription validée");
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @PatchMapping("/desinscription/{tournamentId}")
-    public ResponseEntity<Object> desinscription(
-            Authentication authentication,
-            @PathVariable Long tournamentId
-    ){
-        String token = authentication.getCredentials().toString();
-        Long memberId = jwtUtils.getId(token);
-
-        tournamentService.desinscription(memberId,tournamentId);
-
-        return ResponseEntity.status(200).body("Vous avez été désinscrit du tournois");
     }
 }

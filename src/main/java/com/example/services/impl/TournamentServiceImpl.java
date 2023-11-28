@@ -37,6 +37,7 @@ public class TournamentServiceImpl implements TournamentService {
             throw new AlreadyStartTournamentException();
         this.tournamentRepository.delete(tournament);
     }
+
     @Override
     public Tournament getbyId(Long id) {
         return this.tournamentRepository.findById(id).orElseThrow();
@@ -44,11 +45,12 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Override
     public List<Tournament> getTenNotOVer() {
-        return tournamentRepository.findTenNotOver();      }
+        return tournamentRepository.findTenNotOver();
+    }
 
     @Override
-    public List<Tournament> getDetails(long id) {
-        return null;
+    public Tournament getDetails(long id) {
+        return tournamentRepository.findById(id).orElseThrow();
     }
 
     @Override
