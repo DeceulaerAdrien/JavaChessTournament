@@ -16,7 +16,7 @@ public interface TournamentService {
 
     List<Tournament> getTenNotOVer();
 
-    List<Tournament> getDetails(long id);
+    Tournament getDetails(long id);
 
     Tournament update(Long id, Tournament tournament);
 
