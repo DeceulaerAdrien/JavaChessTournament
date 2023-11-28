@@ -72,10 +72,19 @@ public class TournamentServiceImpl implements TournamentService {
 
         memberRepository.save(member);
         tournamentRepository.save(tournament);
+
+
     }
 
     @Override
-    public void desinscription(Long id) {
+    public void desinscription(Long memberId , Long tournamentId) {
+        Member member = memberRepository.findById(memberId).orElseThrow();
+        Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
+
+        member.removeTournament(tournament);
+
+        memberRepository.save(member);
+        tournamentRepository.save(tournament);
 
     }
 }
