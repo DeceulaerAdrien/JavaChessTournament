@@ -1,12 +1,14 @@
 package com.example.models.dtos.tournament;
 
+import com.example.models.dtos.member.MemberShortDTO;
 import com.example.models.entities.Tournament;
 import com.example.models.entities.enums.TournamentStatutEnum;
 
 import java.time.LocalDate;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-
-public record TournamentDTO(
+public record TournamentDetailDTO(
         Long id,
         String name,
         String location,
@@ -18,15 +20,18 @@ public record TournamentDTO(
         int maxElo,
         int round,
         int playerCount,
-        boolean womenOnly
+        boolean womenOnly,
+        Set<MemberShortDTO> memberSet
 ) {
 
-    public static TournamentDTO fromEntity(Tournament tournament) {
+    public static TournamentDetailDTO fromEntity(Tournament tournament) {
 
+        Set<MemberShortDTO> memberSet = tournament.getMemberSet().stream()
+                .map(MemberShortDTO::fromEntity).collect(Collectors.toSet());
 
         int playerCount = tournament.getMemberSet().size();
 
-        return new TournamentDTO(
+        return new TournamentDetailDTO(
                 tournament.getId(),
                 tournament.getName(),
                 tournament.getLocation(),
@@ -38,7 +43,8 @@ public record TournamentDTO(
                 tournament.getMaxElo(),
                 tournament.getRound(),
                 playerCount,
-                tournament.isWomenOnly()
+                tournament.isWomenOnly(),
+                memberSet
         );
     }
 }

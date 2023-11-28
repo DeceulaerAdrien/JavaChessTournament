@@ -76,11 +76,12 @@ public class Member extends BaseEntity<Long> implements UserDetails {
         return Set.copyOf(this.tournamentSet);
     }
 
-    public void addTournament(Tournament tournament){
+    public void addTournament(Tournament tournament) {
         this.tournamentSet.add(tournament);
         tournament.addMember(this);
     }
-    public void removeTournament(Tournament tournament){
+
+    public void removeTournament(Tournament tournament) {
         this.tournamentSet.remove(tournament);
         tournament.removeMember(this);
     }
