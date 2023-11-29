@@ -30,6 +30,7 @@ public record TournamentForm(
 
         @NotNull
         Set<TournamentCategorieEnum> categoriesEnum,
+
         TournamentStatutEnum statut,
 
         @NotNull
