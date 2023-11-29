@@ -1,18 +1,21 @@
 package com.example.services.impl;
 
-import com.example.exceptions.member.AlreadyExistMemberException;
 import com.example.exceptions.tournament.*;
+import com.example.models.entities.Encounter;
 import com.example.models.entities.Member;
 import com.example.models.entities.Tournament;
 import com.example.models.entities.enums.MemberGenderEnum;
 import com.example.models.entities.enums.TournamentCategorieEnum;
+import com.example.repositories.EncounterRepository;
 import com.example.repositories.TournamentRepository;
 import com.example.repositories.security.MemberRepository;
+import com.example.services.EncounterService;
 import com.example.services.TournamentService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TournamentServiceImpl implements TournamentService {
@@ -20,9 +23,12 @@ public class TournamentServiceImpl implements TournamentService {
     private final TournamentRepository tournamentRepository;
     private final MemberRepository memberRepository;
 
-    public TournamentServiceImpl(TournamentRepository tournamentRepository, MemberRepository memberRepository) {
+    private final EncounterService encounterService;
+
+    public TournamentServiceImpl(TournamentRepository tournamentRepository, MemberRepository memberRepository, EncounterRepository encounterRepository, EncounterService encounterService) {
         this.tournamentRepository = tournamentRepository;
         this.memberRepository = memberRepository;
+        this.encounterService = encounterService;
     }
 
     @Override
@@ -120,5 +126,17 @@ public class TournamentServiceImpl implements TournamentService {
         memberRepository.save(member);
         tournamentRepository.save(tournament);
 
+    }
+
+    @Override
+    public void tournamentStart(Long tournamentId) {
+        Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
+//        if (tournament.getMemberSet().size() < tournament.getMinPlayer())
+//            throw new MaxNumberOfPlayerException("Vous n'avez pas assez de participants pour lancer ce tournois.");
+//        if(LocalDate.now().isBefore(tournament.getEndInscritpionDate()))
+//            throw new EndOfInscriptionException("Le délai d'inscription n'est pas encore fini");
+        tournament.setRound(tournament.getRound()+1);
+
+        Set<Encounter> encounters = encounterService.generated(tournamentId);
     }
 }

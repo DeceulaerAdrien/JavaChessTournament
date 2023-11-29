@@ -24,4 +24,6 @@ public interface TournamentService {
 
     void desinscription(Long memberId, Long tournamentId );
 
+    void tournamentStart(Long tournamentId);
+
 }
