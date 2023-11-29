@@ -6,5 +6,5 @@ public interface EncounterService {
 
     Encounter modificationResultat(Long encounterId,Encounter encounter);
 
-    Encounter create(Encounter encounter);
+    Encounter generated(Encounter encounter);
 }
