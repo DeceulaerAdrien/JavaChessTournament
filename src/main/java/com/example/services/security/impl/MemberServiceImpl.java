@@ -6,6 +6,7 @@ import com.example.models.entities.Member;
 import com.example.repositories.security.MemberRepository;
 import com.example.services.MemberService;
 import com.example.utils.BCryptUtils;
+import com.example.utils.MailerUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,12 @@ import org.springframework.stereotype.Service;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
-
+    private final MailerUtils mailerUtils;
     private final BCryptUtils bCryptUtils;
 
-    public MemberServiceImpl(MemberRepository memberRepository, BCryptUtils bCryptUtils) {
+    public MemberServiceImpl(MemberRepository memberRepository, MailerUtils mailerUtils, BCryptUtils bCryptUtils) {
         this.memberRepository = memberRepository;
+        this.mailerUtils = mailerUtils;
         this.bCryptUtils = bCryptUtils;
     }
 
@@ -27,6 +29,7 @@ public class MemberServiceImpl implements MemberService {
         if (memberRepository.existsByUsername(member.getUsername())) {
             throw new AlreadyExistMemberException();
         }
+        mailerUtils.sendPasswordByEmail(member.getEmail(), "test", member.getPassword());
         String hashedPassword = bCryptUtils.hash(member.getPassword());
         member.setPassword(hashedPassword);
         return memberRepository.save(member);
