@@ -30,7 +30,12 @@ public class Encounter extends BaseEntity<Long> {
     @Column(name = "Number_Round")
     private int number_round;
 
+    @Enumerated(EnumType.STRING)@Setter
     @Column(name = "Result_Encounter",columnDefinition = "Varchar DEFAULT 'NOT_PLAYED'")
     private EncounterResultEnum resultEnum;
+
+    @Setter
+    @Column(name = "Number_Encounter")
+    private int number_encounter;
 
 }

@@ -93,4 +93,10 @@ public class TournamentController {
         tournamentService.desinscription(memberId, id);
         return ResponseEntity.status(200).body("Vous n'êtes plus inscrit dans le tournois");
     }
+
+    @PutMapping("/begin/{id}")
+    public ResponseEntity<Void> tournamentStart(@PathVariable Long id){
+        tournamentService.tournamentStart(id);
+        return null;
+    }
 }
