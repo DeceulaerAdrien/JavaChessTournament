@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -56,9 +57,10 @@ public class DataInitializer implements CommandLineRunner {
         tournamentRepository.save(tournament);
 
 //
-//        List<Member> members = List.of(admin);
-//        Member test = new Member();
-//        members.add(test);
-//        members.forEach(System.out::println);
+        List<Member> members = new ArrayList<>();
+        members.add(admin);
+        Member test = new Member();
+        members.add(test);
+        members.forEach(System.out::println);
     }
 }

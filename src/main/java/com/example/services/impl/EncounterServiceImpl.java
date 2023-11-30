@@ -9,6 +9,7 @@ import com.example.repositories.TournamentRepository;
 import com.example.services.EncounterService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,11 +36,12 @@ public class EncounterServiceImpl implements EncounterService {
         return this.encounterRepository.save(changeEncounter);
     }
 
+    //List<Member> memberList = new ArrayList<>(memberSet);
     @Override
     public Set<Encounter> generated(Long tournamentId) {
         Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow();
         Set<Encounter> encounterSet = new HashSet<>();
-        List<Member> players = tournament.getMemberSet().stream().toList();
+        List<Member> players = new ArrayList<>(tournament.getMemberSet());
         if(players.size() % 2 != 0){
             players.add(new Member());
         }
